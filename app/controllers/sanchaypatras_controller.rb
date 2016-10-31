@@ -26,7 +26,8 @@ class SanchaypatrasController < ApplicationController
   def create
     @sanchaypatra = current_user.sanchaypatras.new(sanchaypatra_params)
     redeem_dates = []
-    redeem_months = ((@sanchaypatra.active_date+1.day) .. @sanchaypatra.expire_date).map{|d| [d.year, d.month]}.uniq
+    redeem_months = ((@sanchaypatra.active_date) .. @sanchaypatra.expire_date).map{|d| [d.year, d.month]}.uniq
+    redeem_months = redeem_months.drop(1)
     redeem_months.each do |year,month|
       if Date.valid_date?(year,month,@sanchaypatra.active_date.day)
         redeem_dates << Date.new(year,month,@sanchaypatra.active_date.day)
