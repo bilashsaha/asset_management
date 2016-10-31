@@ -19,5 +19,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap-sprockets
+//= require bootstrap
 //= require bootstrap-datetimepicker
 //= require jquery-ui
