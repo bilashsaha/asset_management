@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Reg number:</strong>
+  <%= @sanchaypatra.reg_number %>
+</p>
+
+<p>
+  <strong>Issue date:</strong>
+  <%= @sanchaypatra.issue_date %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @sanchaypatra.amount %>
+</p>
+
+<p>
+  <strong>Profit per lac:</strong>
+  <%= @sanchaypatra.profit_per_lac %>
+</p>
+
+<p>
+  <strong>Active date:</strong>
+  <%= @sanchaypatra.active_date %>
+</p>
+
+<p>
+  <strong>Expire date:</strong>
+  <%= @sanchaypatra.expire_date %>
+</p>
+
+<p>
+  <strong>Profilt percentage:</strong>
+  <%= @sanchaypatra.profilt_percentage %>
+</p>
+
+<%= link_to 'Edit', edit_sanchaypatra_path(@sanchaypatra) %> |
+<%= link_to 'Back', sanchaypatras_path %>
+<%= link_to 'Tokens', tokens_path(:sanchaypatra_id => @sanchaypatra.id) %>

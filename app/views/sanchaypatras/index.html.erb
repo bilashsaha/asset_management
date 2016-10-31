@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Sanchaypatras</h1>
+
+<table class="table table-striped" >
+  <thead>
+    <tr>
+      <th>Reg number</th>
+      <th>Issue date</th>
+      <th>Amount</th>
+      <th>Profit per lac</th>
+      <th>Active date</th>
+      <th>Expire date</th>
+      <th>Profilt percentage</th>
+      <th colspan="4"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sanchaypatras.each do |sanchaypatra| %>
+      <tr>
+        <td><%= sanchaypatra.reg_number %></td>
+        <td><%= sanchaypatra.issue_date %></td>
+        <td><%= sanchaypatra.amount %></td>
+        <td><%= sanchaypatra.profit_per_lac %></td>
+        <td><%= sanchaypatra.active_date %></td>
+        <td><%= sanchaypatra.expire_date %></td>
+        <td><%= sanchaypatra.profilt_percentage %></td>
+        <td><%= link_to 'Show', sanchaypatra %></td>
+        <td><%= link_to 'Edit', edit_sanchaypatra_path(sanchaypatra) %></td>
+        <td><%= link_to 'Destroy', sanchaypatra, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Tokens', tokens_path(:sanchaypatra_id => sanchaypatra.id) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sanchaypatra', new_sanchaypatra_path %>

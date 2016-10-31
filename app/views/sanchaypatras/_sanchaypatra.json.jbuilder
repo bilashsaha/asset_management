@@ -1,0 +1,2 @@
+json.extract! sanchaypatra, :id, :reg_number, :issue_date, :amount, :profit_per_lac, :active_date, :expire_date, :profilt_percentage, :created_at, :updated_at
+json.url sanchaypatra_url(sanchaypatra, format: :json)

@@ -1,0 +1,1 @@
+json.array! @sanchaypatras, partial: 'sanchaypatras/sanchaypatra', as: :sanchaypatra

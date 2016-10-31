@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sanchaypatra_id: 1
+  token_number: 1
+  token_date: 2016-10-31 13:23:58
+  is_redeemed: false
+
+two:
+  sanchaypatra_id: 1
+  token_number: 1
+  token_date: 2016-10-31 13:23:58
+  is_redeemed: false

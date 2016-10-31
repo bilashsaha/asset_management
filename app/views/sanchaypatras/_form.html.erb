@@ -1,0 +1,49 @@
+<%= form_for(@sanchaypatra) do |f| %>
+  <% if @sanchaypatra.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sanchaypatra.errors.count, "error") %> prohibited this sanchaypatra from being saved:</h2>
+
+      <ul>
+      <% @sanchaypatra.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :reg_number %><br>
+    <%= f.text_field :reg_number %>
+  </div>
+  <div class="field">
+    <%= f.label :issue_date %><br>
+    <%= f.date_select :issue_date %>
+  </div>
+  <div class="field">
+    <%= f.label :amount %><br>
+    <%= f.text_field :amount %>
+  </div>
+  <div class="field">
+    <%= f.label :profit_per_lac %><br>
+    <%= f.text_field :profit_per_lac %>
+  </div>
+  <div class="field">
+    <%= f.label :active_date %><br>
+    <%= f.date_select :active_date %>
+  </div>
+  <div class="field">
+    <%= f.label :expire_date %><br>
+    <%= f.date_select :expire_date %>
+  </div>
+  <div class="field">
+    <%= f.label :interval_month %><br>
+    <%= f.text_field :interval_month %>
+  </div>
+  <div class="field">
+    <%= f.label :profilt_percentage %><br>
+    <%= f.text_field :profilt_percentage %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
