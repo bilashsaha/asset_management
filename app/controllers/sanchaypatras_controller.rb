@@ -4,7 +4,7 @@ class SanchaypatrasController < ApplicationController
   # GET /sanchaypatras
   # GET /sanchaypatras.json
   def index
-    @sanchaypatras = Sanchaypatra.all
+    @sanchaypatras = current_user.sanchaypatras.all
   end
 
   # GET /sanchaypatras/1
@@ -14,7 +14,7 @@ class SanchaypatrasController < ApplicationController
 
   # GET /sanchaypatras/new
   def new
-    @sanchaypatra = Sanchaypatra.new
+    @sanchaypatra = current_user.sanchaypatras.new
   end
 
   # GET /sanchaypatras/1/edit
@@ -24,7 +24,7 @@ class SanchaypatrasController < ApplicationController
   # POST /sanchaypatras
   # POST /sanchaypatras.json
   def create
-    @sanchaypatra = Sanchaypatra.new(sanchaypatra_params)
+    @sanchaypatra = current_user.sanchaypatras.new(sanchaypatra_params)
     redeem_dates = []
     redeem_months = ((@sanchaypatra.active_date+1.day) .. @sanchaypatra.expire_date).map{|d| [d.year, d.month]}.uniq
     redeem_months.each do |year,month|
@@ -77,14 +77,19 @@ class SanchaypatrasController < ApplicationController
     end
   end
 
+  def calculate_to_date
+    @sanchaypatras = current_user.sanchaypatras
+  end
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_sanchaypatra
-    @sanchaypatra = Sanchaypatra.find(params[:id])
+    @sanchaypatra = current_user.sanchaypatras.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def sanchaypatra_params
-    params.require(:sanchaypatra).permit(:reg_number, :issue_date, :amount, :profit_per_lac, :active_date, :expire_date, :profilt_percentage,:interval_month)
+    #params.require(:sanchaypatra).permit(:reg_number, :issue_date, :amount, :profit_per_lac, :active_date, :expire_date, :profilt_percentage,:interval_month)
+    params.require(:sanchaypatra).permit!
   end
 end
