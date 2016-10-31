@@ -5,7 +5,7 @@ class TokensController < ApplicationController
   # GET /tokens.json
   def index
     if params[:sanchaypatra_id]
-      @tokens = Token.where(sanchaypatra_id=params[:sanchaypatra_id])
+      @tokens = Token.where(sanchaypatra_id:params[:sanchaypatra_id])
     else
       @tokens = Token.all
     end
