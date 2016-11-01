@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
 
-  root 'sanchaypatras#index'
+  root 'home#index'
 
   devise_for :users
   resources :tokens

@@ -12,8 +12,10 @@
  *
  *= require font-awesome
  *= require_self
+ *= require bootstrap.min
  *= require bootstrap-datetimepicker.min
  *= require jquery-ui
+ *= require theme_custom
  */
 @import "bootstrap-sprockets";
 @import "bootstrap";
