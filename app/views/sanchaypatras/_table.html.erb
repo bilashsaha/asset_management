@@ -1,13 +1,15 @@
-<table class="table table-striped" >
+<table class="table table-striped table-bordered" >
   <thead>
   <tr>
     <th>Reg number</th>
+    <th>Owner</th>
+    <th>Nominee</th>
     <th>Issue date</th>
     <th>Amount</th>
     <th>Profit per lac</th>
     <th>Active date</th>
     <th>Expire date</th>
-    <th colspan="4"></th>
+    <th colspan="4">Actions</th>
   </tr>
   </thead>
 
@@ -15,12 +17,13 @@
   <% sanchaypatras.each do |sanchaypatra| %>
     <tr>
       <td><%= sanchaypatra.reg_number %></td>
+      <td><%= sanchaypatra.owner_name %></td>
+      <td><%= sanchaypatra.nominee_name %></td>
       <td><%= sanchaypatra.issue_date %></td>
       <td><%= sanchaypatra.amount %></td>
       <td><%= sanchaypatra.profit_per_lac %></td>
       <td><%= sanchaypatra.active_date %></td>
       <td><%= sanchaypatra.expire_date %></td>
-      <td><%= link_to 'Show', sanchaypatra %></td>
       <td><%= link_to 'Edit', edit_sanchaypatra_path(sanchaypatra) %></td>
       <td><%= link_to 'Destroy', sanchaypatra, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       <td><%= link_to 'Tokens', tokens_path(:sanchaypatra_id => sanchaypatra.id) %></td>

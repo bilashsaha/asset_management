@@ -7,14 +7,14 @@
 
 <%= link_to '<< Back', sanchaypatras_path %>
 
-<table class="table table-striped">
+<table class="table table-striped table-bordered">
   <thead>
     <tr>
       <th>Sanchaypatra</th>
       <th>Token number</th>
       <th>Token date</th>
       <th>Is redeemed</th>
-      <th colspan="3"></th>
+      <th colspan="2">Actions</th>
     </tr>
   </thead>
 
@@ -25,7 +25,6 @@
         <td><%= token.token_number %></td>
         <td><%= token.token_date %></td>
         <td><%= token.is_redeemed %></td>
-        <td><%= link_to 'Show', token %></td>
         <td><%= link_to 'Edit', edit_token_path(token) %></td>
         <td><%= link_to 'Destroy', token, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

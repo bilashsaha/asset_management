@@ -11,39 +11,48 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :reg_number %><br>
     <%= f.text_field :reg_number %>
   </div>
-  <div class="field">
+  <div class="form-group">
+    <%= f.label :owner_name %><br>
+    <%= f.text_field :owner_name %>
+  </div>
+  <div class="form-group">
+    <%= f.label :nominee_name %><br>
+    <%= f.text_field :nominee_name %>
+  </div>
+  <div class="form-group">
     <%= f.label :issue_date %><br>
     <%= f.date_select :issue_date %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :amount %><br>
     <%= f.text_field :amount %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :profit_per_lac %><br>
     <%= f.text_field :profit_per_lac %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :active_date %><br>
     <%= f.date_select :active_date %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :expire_date %><br>
     <%= f.date_select :expire_date %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :interval_month %><br>
     <%= f.text_field :interval_month %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :profilt_percentage %><br>
     <%= f.text_field :profilt_percentage %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="actions ">
+    <%= f.submit :class => "btn btn-success" %>
+    <%= link_to 'Cancel', sanchaypatras_path, :class => "btn btn-danger" %>
   </div>
 <% end %>

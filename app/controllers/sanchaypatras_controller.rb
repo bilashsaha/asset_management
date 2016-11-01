@@ -4,7 +4,10 @@ class SanchaypatrasController < ApplicationController
   # GET /sanchaypatras
   # GET /sanchaypatras.json
   def index
-    @sanchaypatras_in_groups = current_user.sanchaypatras.order(:interval_month).group_by(&:interval_month)
+    sanchaypatras =  current_user.sanchaypatras
+    sanchaypatras =  current_user.sanchaypatras.where("reg_number like ?","%#{params[:reg_number]}%") if params[:reg_number].present?
+    sanchaypatras =  current_user.sanchaypatras.where("owner_name like ?","%#{params[:owner_name]}%") if params[:owner_name].present?
+    @sanchaypatras_in_groups = sanchaypatras.order(:active_date).group_by(&:interval_month)
   end
 
   # GET /sanchaypatras/1
@@ -29,7 +32,7 @@ class SanchaypatrasController < ApplicationController
 
     respond_to do |format|
       if @sanchaypatra.save
-        format.html { redirect_to @sanchaypatra, notice: 'Sanchaypatra was successfully created.' }
+        format.html { redirect_to sanchaypatras_url, notice: 'Sanchaypatra was successfully created.' }
         format.json { render :show, status: :created, location: @sanchaypatra }
       else
         format.html { render :new }
@@ -42,7 +45,7 @@ class SanchaypatrasController < ApplicationController
     @sanchaypatra.generate_tokens
     respond_to do |format|
       if @sanchaypatra.save
-        format.html { redirect_to @sanchaypatra, notice: 'Tokens was successfully regenerated.' }
+        format.html { redirect_to sanchaypatras_url, notice: 'Tokens was successfully regenerated.' }
         format.json { render :show, status: :created, location: @sanchaypatra }
       else
         format.html { render :new }
@@ -57,7 +60,7 @@ class SanchaypatrasController < ApplicationController
   def update
     respond_to do |format|
       if @sanchaypatra.update(sanchaypatra_params)
-        format.html { redirect_to @sanchaypatra, notice: 'Sanchaypatra was successfully updated.' }
+        format.html { redirect_to sanchaypatras_url, notice: 'Sanchaypatra was successfully updated.' }
         format.json { render :show, status: :ok, location: @sanchaypatra }
       else
         format.html { render :edit }
