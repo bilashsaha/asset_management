@@ -2,7 +2,7 @@
 
 <% @sanchaypatras_in_groups.each do |interval,sanchaypatras| %>
     <h3>Interval Months : <%= interval %> </h3>
-    <%= render :partial => "table",  :locals => {:sanchaypatras => sanchaypatras} %>
+    <%= render :partial => "table",  :locals => {:sanchaypatras => sanchaypatras.sort_by(&:active_date)} %>
   <br/>
 <% end %>
 
