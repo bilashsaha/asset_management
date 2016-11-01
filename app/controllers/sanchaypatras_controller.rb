@@ -1,10 +1,10 @@
 class SanchaypatrasController < ApplicationController
-  before_action :set_sanchaypatra, only: [:show, :edit, :update, :destroy]
+  before_action :set_sanchaypatra, only: [:show, :edit, :update, :destroy, :regenerate_tokens]
 
   # GET /sanchaypatras
   # GET /sanchaypatras.json
   def index
-    @sanchaypatras = current_user.sanchaypatras.all
+    @sanchaypatras_in_groups = current_user.sanchaypatras.order(:interval_month).group_by(&:interval_month)
   end
 
   # GET /sanchaypatras/1
@@ -25,23 +25,7 @@ class SanchaypatrasController < ApplicationController
   # POST /sanchaypatras.json
   def create
     @sanchaypatra = current_user.sanchaypatras.new(sanchaypatra_params)
-    redeem_dates = []
-    redeem_months = ((@sanchaypatra.active_date) .. @sanchaypatra.expire_date).map{|d| [d.year, d.month]}.uniq
-    redeem_months = redeem_months.drop(1)
-    redeem_months.each do |year,month|
-      if Date.valid_date?(year,month,@sanchaypatra.active_date.day)
-        redeem_dates << Date.new(year,month,@sanchaypatra.active_date.day)
-      else
-        redeem_dates << Date.new(year,month,1).next_month
-      end
-    end
-    redeem_dates = redeem_dates.every_nth(@sanchaypatra.interval_month)
-    redeem_dates.each_with_index do |date,index| # 1 day added to avoid the first date
-        token = Token.new
-        token.token_number = index+1
-        token.token_date = date
-        @sanchaypatra.tokens << token
-    end
+    @sanchaypatra.generate_tokens
 
     respond_to do |format|
       if @sanchaypatra.save
@@ -52,6 +36,20 @@ class SanchaypatrasController < ApplicationController
         format.json { render json: @sanchaypatra.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def regenerate_tokens
+    @sanchaypatra.generate_tokens
+    respond_to do |format|
+      if @sanchaypatra.save
+        format.html { redirect_to @sanchaypatra, notice: 'Tokens was successfully regenerated.' }
+        format.json { render :show, status: :created, location: @sanchaypatra }
+      else
+        format.html { render :new }
+        format.json { render json: @sanchaypatra.errors, status: :unprocessable_entity }
+      end
+    end
+
   end
 
   # PATCH/PUT /sanchaypatras/1
@@ -85,7 +83,7 @@ class SanchaypatrasController < ApplicationController
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_sanchaypatra
-    @sanchaypatra = current_user.sanchaypatras.find(params[:id])
+    @sanchaypatra = current_user.sanchaypatras.find(params[:id] || params[:sanchaypatra_id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
