@@ -15,7 +15,7 @@ class TokensController < ApplicationController
     else
       @tokens
     end
-    @tokens.order(:token_number)
+    @tokens = @tokens.order(:token_number)
   end
 
   # GET /tokens/1
