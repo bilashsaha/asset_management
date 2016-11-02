@@ -1,14 +1,39 @@
-<p id="notice"><%= notice %></p>
+<div class="box-content search-box">
+  <%= form_for "", :url => tokens_url(:sanchaypatra_id => params[:sanchaypatra_id]), :method => "GET" do |f| %>
+    <div class="row">
+      <div class="col-md-6 col-sm-12">
+        <select class="form-control" onchange="this.form.submit();" name="filter[redemption]">
+          <option value="">--Please Select--</option>
+          <option <%= 'selected' if params[:filter] && params[:filter][:redemption] == "redeemed" %> value="redeemed">Redeemed</option>
+          <option <%= 'selected' if params[:filter] && params[:filter][:redemption] == "not_redeemed" %> value="not_redeemed">Not
+            Redeemed
+          </option>
+        </select>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <div class='input-group date datepicker'>
+          <input type='text' class="form-control" name="filter[till_date]" value="<%= params[:filter][:till_date] if params[:filter] && params[:filter][:till_date] %>"/>
+            <span class="input-group-addon">
+               <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12" style="margin-top: 10px">
+      <input type="hidden" value="<%= params[:sanchaypatra_id] %>" name="sanchaypatra_id">
+      <button type="submit" class="btn btn-primary">Search</button>
+      <a class="btn btn-primary" href="/tokens?sanchaypatra_id=<%=params[:sanchaypatra_id] %>">Reset</a>
+      </div>
+    </div>
 
+  <% end %>
+</div>
 
+<div class="box-content tokens-box">
 
-
-<h1>Listing Tokens</h1>
-
-<%= link_to '<< Back', sanchaypatras_path %>
-
-<table class="table table-striped table-bordered">
-  <thead>
+  <table class="table table-striped table-bordered">
+    <thead>
     <tr>
       <th>Sanchaypatra</th>
       <th>Token number</th>
@@ -16,22 +41,30 @@
       <th>Is redeemed</th>
       <th colspan="2">Actions</th>
     </tr>
-  </thead>
+    </thead>
 
-  <tbody>
+    <tbody>
     <% @tokens.each do |token| %>
       <tr>
         <td><%= token.sanchaypatra.reg_number %></td>
         <td><%= token.token_number %></td>
         <td><%= token.token_date %></td>
-        <td><%= token.is_redeemed %></td>
+        <td>
+          <% if token.is_redeemed? %>
+            <img src='/tick.png'>
+          <% else %>
+            <%= check_box_tag 'is_redeemed', token.is_redeemed, token.is_redeemed, {:class => "is_redeemed", :token_id => token.id} %>
+          <% end %>
+
+        </td>
         <td><%= link_to 'Edit', edit_token_path(token) %></td>
-        <td><%= link_to 'Destroy', token, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Destroy', token, method: :delete, data: {confirm: 'Are you sure?'} %></td>
       </tr>
     <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
 
-<br>
+  <br>
 
-<%= link_to '<< Back', sanchaypatras_path %>
+  <%= link_to '<< Back', sanchaypatras_path %>
+</div>

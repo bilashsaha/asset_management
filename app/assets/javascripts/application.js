@@ -12,10 +12,35 @@
 //
 
 
-
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require moment
 //= require bootstrap-datetimepicker
 //= require jquery-ui
+
+$(document).ready(function () {
+    $("input#is_redeemed").click(function(e){
+        var clicked_checkbox = $(this);
+        var token_id = clicked_checkbox.attr("token_id")
+        var is_checked = clicked_checkbox.prop('checked')
+        $.ajax({
+            url: '/tokens/' + token_id + '.json',
+            type: 'PUT',
+            data: {token: {is_redeemed: is_checked ? "1" : 0 }},
+            success: function(response){
+                clicked_checkbox.parent().html("<img src='/tick.png'>")
+            },
+            error: function(response) {
+                alert("Something Bad Happened !!")
+                clicked_checkbox.prop('checked',false);
+            }
+        })
+    })
+
+    $('.datepicker').datetimepicker({
+        viewMode: 'years',
+        format: 'YYYY-MM-DD'
+    });
+
+});

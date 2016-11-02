@@ -6,9 +6,10 @@
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
 </head>
-<body>
-<%= render 'layouts/header' %>
-<div class="container">
+<body style="background-color: #eaf4ff">
+
+<div class="container" style="margin-bottom: 30px">
+  <%= render 'layouts/header' %>
   <%= render 'layouts/messages' %>
   <%= yield %>
 </div>
