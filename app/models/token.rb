@@ -3,7 +3,7 @@ class Token < ActiveRecord::Base
 
   scope :redeemed, -> { where(is_redeemed: true) }
   scope :not_redeemed, -> { where(is_redeemed: false) }
-  scope :till_date, -> (to_date) { where("token_date < ?",to_date) }
+  scope :till_date, -> (to_date) { where("token_date <= ?",to_date) }
 
 
 

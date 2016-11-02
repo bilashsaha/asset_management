@@ -11,7 +11,7 @@ class TokensController < ApplicationController
         @tokens = @tokens.where(:is_redeemed => true) if params[:filter][:redemption] == "redeemed"
         @tokens = @tokens.where(:is_redeemed => false) if params[:filter][:redemption] == "not_redeemed"
       end
-      @tokens = @tokens.where("token_date < ?", params[:filter][:till_date]) if params[:filter][:till_date].present?
+      @tokens = @tokens.where("token_date <= ?", params[:filter][:till_date]) if params[:filter][:till_date].present?
     else
       @tokens
     end
