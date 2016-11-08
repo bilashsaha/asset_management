@@ -8,9 +8,21 @@
 
 <div class="box-content sanchaypatras-box">
   <% @sanchaypatras_in_groups.each do |interval, sanchaypatras| %>
-    <h3>Interval Months : <%= interval %> </h3>
-    <%= render :partial => "table_with_tokens", :locals => {:sanchaypatras => sanchaypatras.sort_by(&:active_date)} %>
-    <br/>
+    <div class="panel-group">
+      <div class="panel panel-default">
+        <div class="panel-heading" data-toggle="collapse" href="#interval<%= interval %>" style="cursor:pointer;">
+          <h4 class="panel-title">
+            Interval <%= interval %> months
+          </h4>
+        </div>
+        <div id="interval<%= interval %>" class="panel-collapse collapse">
+          <%= render :partial => "table_with_tokens", :locals => {:sanchaypatras => sanchaypatras.sort_by(&:active_date)} %>
+          <br/>
+        </div>
+      </div>
+    </div>
   <% end %>
   <h2>Total Redeemable Amount : <%= @total_redeemable_amount %></h2>
 </div>
+
+
