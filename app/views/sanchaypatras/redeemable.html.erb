@@ -1,0 +1,16 @@
+<div class="box-content search-box">
+  <%= form_for "", :url => redeemable_sanchaypatras_path, :method => "GET" do |f| %>
+    Select Till Date : <%= f.date_select :till_date,{:default => (@till_date || Time.now)} %>
+    <button type="submit" class="btn btn-primary">Search</button>
+    <a class="btn btn-primary" href="/sanchaypatras/redeemable/">Reset</a>
+  <% end %>
+</div>
+
+<div class="box-content sanchaypatras-box">
+  <% @sanchaypatras_in_groups.each do |interval, sanchaypatras| %>
+    <h3>Interval Months : <%= interval %> </h3>
+    <%= render :partial => "table_with_tokens", :locals => {:sanchaypatras => sanchaypatras.sort_by(&:active_date)} %>
+    <br/>
+  <% end %>
+  <h2>Total Redeemable Amount : <%= @total_redeemable_amount %></h2>
+</div>

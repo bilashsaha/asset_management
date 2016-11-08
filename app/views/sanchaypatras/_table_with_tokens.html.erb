@@ -1,0 +1,48 @@
+<table class="table table-striped table-bordered">
+  <thead>
+  <tr>
+    <th>Reg number</th>
+    <th>Owner</th>
+    <th>Nominee</th>
+    <th>Amount</th>
+    <th>Profit per period</th>
+    <th>Active date</th>
+    <th>Expire date</th>
+    <th colspan="4">Actions</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% sanchaypatras.each do |sanchaypatra| %>
+    <tr>
+      <td><%= sanchaypatra.reg_number %></td>
+      <td><%= sanchaypatra.owner_name %></td>
+      <td><%= sanchaypatra.nominee_name %></td>
+      <td class="align_right"><%= sanchaypatra.amount %></td>
+      <td class="align_right"><%= sanchaypatra.profit_per_lac %></td>
+      <td><%= sanchaypatra.active_date %></td>
+      <td><%= sanchaypatra.expire_date %></td>
+      <td><%= link_to 'Edit', edit_sanchaypatra_path(sanchaypatra) %></td>
+      <td><%= link_to 'Destroy', sanchaypatra, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+      <td><%= link_to 'Tokens', tokens_path(:sanchaypatra_id => sanchaypatra.id) %></td>
+      <td><%= link_to 'Regenerate Tokens', sanchaypatra_regenerate_tokens_path(:sanchaypatra_id => sanchaypatra.id), data: {confirm: 'Are you sure? This will delete all existing tokens and create new from scratch!!'} %></td>
+    </tr>
+    <% sanchaypatra.tokens.each do |token| %>
+      <tr>
+        <td> </td>
+        <td colspan="3"> Token Number : <%= token.token_number %></td>
+        <td class="align_right" ><%= token.sanchaypatra.profit_per_lac %></td>
+        <td colspan="6"> Token Date : <%= token.token_date %></td>
+      </tr>
+    <% end %>
+    <tr>
+      <td> </td>
+      <td colspan="3"> Total </td>
+      <td class="align_right" ><%= (sanchaypatra.profit_per_lac.to_f * sanchaypatra.tokens.length) %></td>
+      <td colspan="6"> </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>

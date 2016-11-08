@@ -1,7 +1,8 @@
 class Sanchaypatra < ActiveRecord::Base
   belongs_to :user
   has_many :tokens
-  
+
+
   def generate_tokens
     redeem_dates = []
     redeem_months = ((self.active_date) .. self.expire_date).map{|d| [d.year, d.month]}.uniq
