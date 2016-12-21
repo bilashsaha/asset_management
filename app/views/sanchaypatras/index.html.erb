@@ -1,3 +1,8 @@
+<div class="box-content total-amount-box">
+  <% total_amount = Sanchaypatra.sum(:amount) %>
+  <strong><%= total_amount %>  Tk. (<%= in_words(total_amount) %>)</strong>
+</div>
+
 <div class="box-content search-box">
   <%= form_for "", :url => sanchaypatras_url, :method => "GET" do |f| %>
     <input type="text" class="form-control" style="width: 20%;display: inline-block" placeholder="Search By Reg Number" name="reg_number" id="srch-term" value="<%= params[:reg_number] %>">
