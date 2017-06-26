@@ -81,7 +81,7 @@ class SanchaypatrasController < ApplicationController
 
   def redeemable
     @till_date = params["till_date(1i)"].present? ? Date.new(params["till_date(1i)"].to_i, params["till_date(2i)"].to_i, params["till_date(3i)"].to_i) : Time.now
-    @sanchaypatras = Sanchaypatra.includes(:tokens).where("tokens.is_redeemed = ? and tokens.token_date <= ?",false,@till_date).references(:tokens)
+    @sanchaypatras = current_user.sanchaypatras.includes(:tokens).where("tokens.is_redeemed = ? and tokens.token_date <= ?",false,@till_date).references(:tokens)
     @total_redeemable_amount = @sanchaypatras.collect{|s| s.tokens.length*s.profit_per_lac.to_f}.sum
     @sanchaypatras_in_groups = @sanchaypatras.order(:active_date).group_by(&:interval_month)
   end
