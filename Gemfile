@@ -11,7 +11,7 @@ gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
  gem 'therubyracer', platforms: :ruby
 
-gem 'mysql2'
+#gem 'mysql2'
 gem "paperclip", "~> 4.2"
 gem 'devise'
 gem "cancan", :git => "git://github.com/ryanb/cancan.git", :branch => "2.0"

@@ -1,5 +1,5 @@
 <div class="box-content total-amount-box">
-  <% total_amount = current_user.sanchaypatras.sum(:amount) %>
+  <% total_amount = current_user.sanchaypatras.not_expired.sum(:amount) %>
   <strong><%= total_amount %>  Tk.</strong>
 </div>
 

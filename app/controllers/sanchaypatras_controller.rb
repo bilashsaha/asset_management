@@ -4,9 +4,16 @@ class SanchaypatrasController < ApplicationController
   # GET /sanchaypatras
   # GET /sanchaypatras.json
   def index
-    sanchaypatras =  current_user.sanchaypatras
-    sanchaypatras =  current_user.sanchaypatras.where("reg_number like ?","%#{params[:reg_number]}%") if params[:reg_number].present?
-    sanchaypatras =  current_user.sanchaypatras.where("owner_name like ?","%#{params[:owner_name]}%") if params[:owner_name].present?
+    sanchaypatras =  current_user.sanchaypatras.not_expired
+    sanchaypatras =  sanchaypatras.where("reg_number ilike ?","%#{params[:reg_number]}%") if params[:reg_number].present?
+    sanchaypatras =  sanchaypatras.where("owner_name ilike ?","%#{params[:owner_name]}%") if params[:owner_name].present?
+    @sanchaypatras_in_groups = sanchaypatras.order(:active_date).group_by(&:interval_month)
+  end
+
+  def expired
+    sanchaypatras =  current_user.sanchaypatras.expired
+    sanchaypatras =  sanchaypatras.where("reg_number ilike ?","%#{params[:reg_number]}%") if params[:reg_number].present?
+    sanchaypatras =  sanchaypatras.where("owner_name ilike ?","%#{params[:owner_name]}%") if params[:owner_name].present?
     @sanchaypatras_in_groups = sanchaypatras.order(:active_date).group_by(&:interval_month)
   end
 
@@ -18,6 +25,8 @@ class SanchaypatrasController < ApplicationController
   # GET /sanchaypatras/new
   def new
     @sanchaypatra = current_user.sanchaypatras.new
+    @sanchaypatra.active_date = Time.now
+    @sanchaypatra.expire_date = Time.now + 3.years
   end
 
   # GET /sanchaypatras/1/edit
@@ -82,6 +91,7 @@ class SanchaypatrasController < ApplicationController
   def redeemable
     @till_date = params["till_date(1i)"].present? ? Date.new(params["till_date(1i)"].to_i, params["till_date(2i)"].to_i, params["till_date(3i)"].to_i) : Time.now
     @sanchaypatras = current_user.sanchaypatras.includes(:tokens).where("tokens.is_redeemed = ? and tokens.token_date <= ?",false,@till_date).references(:tokens)
+    @sanchaypatras =  @sanchaypatras.where("owner_name ilike ?","%#{params[:owner_name]}%") if params[:owner_name].present?
     @total_redeemable_amount = @sanchaypatras.collect{|s| s.tokens.length*s.profit_per_lac.to_f}.sum
     @sanchaypatras_in_groups = @sanchaypatras.order(:active_date).group_by(&:interval_month)
   end

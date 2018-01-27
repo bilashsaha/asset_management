@@ -2,6 +2,8 @@ class Sanchaypatra < ActiveRecord::Base
   belongs_to :user
   has_many :tokens
 
+  scope :expired, -> { where(" expire_date < ?",Time.now) }
+  scope :not_expired, -> { where(" expire_date >= ?",Time.now) }
 
   def generate_tokens
     redeem_dates = []

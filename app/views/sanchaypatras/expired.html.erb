@@ -1,0 +1,22 @@
+<div class="box-content total-amount-box">
+  <% total_amount = current_user.sanchaypatras.expired.sum(:amount) %>
+  <strong><%= total_amount %>  Tk.</strong>
+</div>
+
+<div class="box-content search-box">
+  <%= form_for "", :url => expired_sanchaypatras_url, :method => "GET" do |f| %>
+      <input type="text" class="form-control" style="width: 20%;display: inline-block" placeholder="Search By Reg Number" name="reg_number" id="srch-term" value="<%= params[:reg_number] %>">
+      <input type="text" class="form-control" style="width: 20%;display: inline-block" placeholder="Search By Owner Name" name="owner_name" id="srch-term" value="<%= params[:owner_name] %>">
+      <button type="submit" class="btn btn-primary">Search</button>
+      <a class="btn btn-primary" href="/sanchaypatras/expired">Reset</a>
+  <% end %>
+</div>
+
+
+<div class="box-content sanchaypatras-box">
+  <% @sanchaypatras_in_groups.each do |interval, sanchaypatras| %>
+      <h3>Interval Months : <%= interval %> </h3>
+      <%= render :partial => "table", :locals => {:sanchaypatras => sanchaypatras.sort_by(&:active_date)} %>
+      <br/>
+  <% end %>
+</div>

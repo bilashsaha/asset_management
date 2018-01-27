@@ -15,7 +15,7 @@
   <tbody>
   <% sanchaypatras.each do |sanchaypatra| %>
     <tr>
-      <td><%= sanchaypatra.reg_number %></td>
+      <td><strong><%= sanchaypatra.reg_number %></strong></td>
       <td><%= sanchaypatra.owner_name %></td>
       <td><%= sanchaypatra.nominee_name %></td>
       <td class="align_right"><%= sanchaypatra.amount %></td>
@@ -35,10 +35,10 @@
         <td colspan="6"> Token Date : <%= token.token_date %></td>
       </tr>
     <% end %>
-    <tr>
+    <tr style="background-color: #BBBBBB">
       <td> </td>
       <td colspan="3"> Total </td>
-      <td class="align_right" ><%= (sanchaypatra.profit_per_lac.to_f * sanchaypatra.tokens.length) %></td>
+      <td class="align_right" ><strong><%= (sanchaypatra.profit_per_lac.to_f * sanchaypatra.tokens.length) %></strong></td>
       <td colspan="6"> </td>
     </tr>
   <% end %>

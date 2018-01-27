@@ -1,6 +1,7 @@
 <div class="box-content search-box">
   <%= form_for "", :url => redeemable_sanchaypatras_path, :method => "GET" do |f| %>
-    Select Till Date : <%= f.date_select :till_date,{:default => (@till_date || Time.now)} %>
+    Select Till Date : <%= f.date_select :till_date,{:default => (@till_date || Time.now)} %> &nbsp;&nbsp;| &nbsp; &nbsp;
+      <input type="text" class="form-control" style="width: 20%;display: inline-block" placeholder="Search By Owner Name" name="owner_name" id="srch-term" value="<%= params[:owner_name] %>">
     <button type="submit" class="btn btn-primary">Search</button>
     <a class="btn btn-primary" href="/sanchaypatras/redeemable/">Reset</a>
   <% end %>
@@ -12,7 +13,7 @@
       <div class="panel panel-default">
         <div class="panel-heading" data-toggle="collapse" href="#interval<%= interval %>" style="cursor:pointer;">
           <h4 class="panel-title">
-            Interval <%= interval %> months
+            Interval <%= interval %> months (<%= total_profit_on_collection(sanchaypatras) %>)
           </h4>
         </div>
         <div id="interval<%= interval %>" class="panel-collapse collapse">

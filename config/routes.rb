@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :sanchaypatras do
     get "regenerate_tokens" => "sanchaypatras#regenerate_tokens"
     get "redeemable" => "sanchaypatras#redeemable", on: :collection
+    get "expired" => "sanchaypatras#expired", on: :collection
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
