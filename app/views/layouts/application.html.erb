@@ -16,8 +16,9 @@
       s.parentNode.insertBefore(t,s)}(window,document,'script',
       'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '609703019417253');
+    fbq('track', 'PageView');
     setTimeout(function(){
-      fbq('track', 'PageView');
+      fbq('trackCustom', '8SecondsOnPage');
     }, 8000);
   </script>
   <noscript>
