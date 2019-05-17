@@ -13,7 +13,9 @@
     'https://connect.facebook.net/en_US/fbevents.js');
   fbq('init', '609703019417253');
   setTimeout(function(){
+    console.log('tracking')
     fbq('track', 'PageView');
+    console.log('tracked')
   }, 8000);
 </script>
 <noscript>
