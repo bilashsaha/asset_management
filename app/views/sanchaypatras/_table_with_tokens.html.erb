@@ -32,7 +32,15 @@
         <td> </td>
         <td colspan="3"> Token Number : <%= token.token_number %></td>
         <td class="align_right" ><%= token.sanchaypatra.profit_per_lac %></td>
-        <td colspan="6"> Token Date : <%= token.token_date %></td>
+        <td colspan="3"> Token Date : <%= token.token_date %></td>
+        <td colspan="3">
+          <% if token.is_redeemed? %>
+              <img src='/tick.png'>
+          <% else %>
+              <%= check_box_tag 'is_redeemed', token.is_redeemed, token.is_redeemed, {:class => "is_redeemed", :token_id => token.id} %>
+              <label>Reedem</label>
+          <% end %>
+        </td>
       </tr>
     <% end %>
     <tr style="background-color: #BBBBBB">
